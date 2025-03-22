@@ -1,8 +1,11 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap");
 :root {
   --radius-md: 8px;
   --radius-sm: 4px;
   --radius-lg: 12px;
+  --primary: #ff3e3e;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 *,
@@ -16,12 +19,15 @@ html {
 }
 
 body {
-  font-family: "Courier New", monospace;
+  font-family: "JetBrains Mono", monospace;
   background-color: #f4f4f4;
   color: #333333;
   line-height: 1.6;
   margin: 0;
   padding: 0;
+  letter-spacing: -0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -30,10 +36,12 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: "JetBrains Mono", monospace;
   font-weight: 600;
+  line-height: 1.2;
   margin-top: 0;
   margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 h1 {
@@ -1419,7 +1427,7 @@ a:hover {
 }
 
 code {
-  font-family: "Courier New", monospace;
+  font-family: "JetBrains Mono", monospace;
   background-color: #e7e7e7;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
@@ -1609,7 +1617,7 @@ code {
   flex-wrap: wrap;
   flex: 1;
   padding: 12px;
-  font-family: "Courier New", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.875rem;
   font-weight: 600;
   text-align: center;
@@ -1768,7 +1776,7 @@ label {
   border: none;
   border-radius: 8px;
   transition: all 0.3s ease;
-  font-family: "Courier New", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 1rem;
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.1), inset -1px -1px 1px rgba(255, 255, 255, 0.7), 0.5px 0.5px 0 0 rgba(255, 255, 255, 0.7);
 }
@@ -1851,7 +1859,7 @@ label {
   flex: 1 1 auto;
   width: 1%;
   font-size: 1rem;
-  font-family: "Courier New", monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 .input-group .input-icon-left + .input-group .input {
   padding-left: 3rem;
@@ -1861,7 +1869,7 @@ label {
 }
 .input-group .textarea {
   font-size: 1rem;
-  font-family: "Courier New", monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 .input-group .textarea-icon-left + .input-group .textarea {
   padding-left: 3rem;
@@ -1881,7 +1889,7 @@ label {
 }
 .input-group .select-wrapper .select {
   font-size: 1rem;
-  font-family: "Courier New", monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 .input-icon-left + .input-group .select-wrapper .select {
   padding-left: 3rem;
@@ -2348,7 +2356,7 @@ label {
   padding: 1rem 1.5rem;
   margin: 0 0.25rem;
   border-radius: 8px;
-  font-family: "Courier New", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.875rem;
   font-weight: 600;
   color: #333333;
