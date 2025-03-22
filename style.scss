@@ -1,0 +1,2572 @@
+// style.scss - Neomorphic UI Components
+// Inspired by Teenage Engineering's hardware aesthetic
+// ------------------------------------------------
+
+// Variables
+// ------------------------------------------------
+$bg-color: #f4f4f4; // Match the button background color from the provided CSS
+$text-color: #333333;
+$accent-color: #ff3e3e;
+$secondary-color: #4fc08d;
+$success-color: #32cd32;
+$warning-color: #ffd700;
+$danger-color: #ff4f5e;
+$info-color: #0099ff;
+
+// Refined shadow values to match the provided CSS
+$shadow-dark: rgba(0, 0, 0, 0.15);
+$shadow-light: rgba(255, 255, 255, 1);
+$shadow-semi: rgba(0, 0, 0, 0.05);
+
+// Updated border radius values to match the reference CSS
+$border-radius: 8px; // Reduced from 16px
+$border-radius-sm: 4px; // Reduced from 10px
+$border-radius-lg: 12px; // Reduced from 24px
+
+// Custom CSS variables
+:root {
+  --radius-md: #{$border-radius};
+  --radius-sm: #{$border-radius-sm};
+  --radius-lg: #{$border-radius-lg};
+}
+
+$font-family: 'Courier New', monospace;
+$font-size-base: 16px;
+$line-height-base: 1.6;
+
+$transition-speed: 0.3s;
+$transition-function: ease;
+
+// Mixins
+// ------------------------------------------------
+@mixin neo-raised {
+  box-shadow: 
+    inset 1px 1px 1px 0 $shadow-light,
+    inset -1px -1px 1px 0 $shadow-dark,
+    0.444584px 0.444584px 0.628737px -1px rgba(0, 0, 0, 0.26),
+    1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.247),
+    2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.23),
+    5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.192),
+    10px 10px 21.2132px -3.75px rgba(0, 0, 0, 0.056),
+    -0.5px -0.5px 0 0 $shadow-semi;
+  border: none;
+}
+
+@mixin neo-pressed {
+  box-shadow: 
+    inset 0.5px 0.5px 1px $shadow-light,
+    inset -0.5px -0.5px 1px rgba(0, 0, 0, 0.26),
+    0.222px 0.222px 0.314px -0.5px rgba(0, 0, 0, 0.2),
+    0.605px 0.605px 0.856px -1px rgba(0, 0, 0, 0.18),
+    1.329px 1.329px 1.88px -1.5px rgba(0, 0, 0, 0.25),
+    2.95px 2.95px 4.172px -2px rgba(0, 0, 0, 0.1),
+    2.5px 2.5px 3px -2.5px rgba(0, 0, 0, 0.15),
+    -0.5px -0.5px 0 0 rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+@mixin neo-inset {
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.15),
+    0 1px 0 0 rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+@mixin neo-focus {
+  outline: none;
+  box-shadow: 
+    inset 1px 1px 1px $shadow-light,
+    inset -1px -1px 1px rgba(0, 0, 0, 0.2),
+    0.444584px 0.444584px 0.628737px -0.75px rgba(0, 0, 0, 0.26),
+    1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.247),
+    2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.23),
+    5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.192);
+}
+
+@mixin neo-transition {
+  transition: all $transition-speed $transition-function;
+}
+
+@mixin neo-flat {
+  background: $bg-color;
+  box-shadow: none;
+  border: 1px solid rgba($shadow-light, 0.3);
+}
+
+@mixin neo-hover {
+  &:hover {
+    box-shadow: 
+      6px 6px 10px 0 $shadow-dark,
+      -6px -6px 10px 0 $shadow-light;
+    transform: translateY(-2px);
+  }
+}
+
+// Reset & Base Styles
+// ------------------------------------------------
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $font-size-base;
+}
+
+body {
+  font-family: $font-family;
+  background-color: $bg-color;
+  color: $text-color;
+  line-height: $line-height-base;
+  margin: 0;
+  padding: 0;
+}
+
+// Typography
+// ------------------------------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: $accent-color;
+  text-decoration: none;
+  @include neo-transition;
+  
+  &:hover {
+    color: darken($accent-color, 10%);
+  }
+}
+
+// Breadcrumb
+// ------------------------------------------------
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: $bg-color;
+  border-radius: $border-radius;
+  @include neo-inset;
+  
+  &-item {
+    display: flex;
+    
+    & + .breadcrumb-item {
+      padding-left: 0.5rem;
+      
+      &::before {
+        display: inline-block;
+        padding-right: 0.5rem;
+        color: rgba($text-color, 0.5);
+        content: "/";
+      }
+    }
+    
+    &.active {
+      color: $accent-color;
+    }
+  }
+}
+
+// Utility Classes
+// ------------------------------------------------
+
+// Margins
+.m-0 { margin: 0 !important; }
+.m-1 { margin: 0.25rem !important; }
+.m-2 { margin: 0.5rem !important; }
+.m-3 { margin: 1rem !important; }
+.m-4 { margin: 1.5rem !important; }
+.m-5 { margin: 3rem !important; }
+
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.mt-4 { margin-top: 1.5rem !important; }
+.mt-5 { margin-top: 3rem !important; }
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mb-5 { margin-bottom: 3rem !important; }
+
+.ml-0 { margin-left: 0 !important; }
+.ml-1 { margin-left: 0.25rem !important; }
+.ml-2 { margin-left: 0.5rem !important; }
+.ml-3 { margin-left: 1rem !important; }
+.ml-4 { margin-left: 1.5rem !important; }
+.ml-5 { margin-left: 3rem !important; }
+
+.mr-0 { margin-right: 0 !important; }
+.mr-1 { margin-right: 0.25rem !important; }
+.mr-2 { margin-right: 0.5rem !important; }
+.mr-3 { margin-right: 1rem !important; }
+.mr-4 { margin-right: 1.5rem !important; }
+.mr-5 { margin-right: 3rem !important; }
+
+.mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+.mx-1 { margin-left: 0.25rem !important; margin-right: 0.25rem !important; }
+.mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+.mx-3 { margin-left: 1rem !important; margin-right: 1rem !important; }
+.mx-4 { margin-left: 1.5rem !important; margin-right: 1.5rem !important; }
+.mx-5 { margin-left: 3rem !important; margin-right: 3rem !important; }
+.mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+.my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+.my-1 { margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+.my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+.my-3 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+.my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+.my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+
+// Paddings
+.p-0 { padding: 0 !important; }
+.p-1 { padding: 0.25rem !important; }
+.p-2 { padding: 0.5rem !important; }
+.p-3 { padding: 1rem !important; }
+.p-4 { padding: 1.5rem !important; }
+.p-5 { padding: 3rem !important; }
+
+.pt-0 { padding-top: 0 !important; }
+.pt-1 { padding-top: 0.25rem !important; }
+.pt-2 { padding-top: 0.5rem !important; }
+.pt-3 { padding-top: 1rem !important; }
+.pt-4 { padding-top: 1.5rem !important; }
+.pt-5 { padding-top: 3rem !important; }
+
+.pb-0 { padding-bottom: 0 !important; }
+.pb-1 { padding-bottom: 0.25rem !important; }
+.pb-2 { padding-bottom: 0.5rem !important; }
+.pb-3 { padding-bottom: 1rem !important; }
+.pb-4 { padding-bottom: 1.5rem !important; }
+.pb-5 { padding-bottom: 3rem !important; }
+
+.pl-0 { padding-left: 0 !important; }
+.pl-1 { padding-left: 0.25rem !important; }
+.pl-2 { padding-left: 0.5rem !important; }
+.pl-3 { padding-left: 1rem !important; }
+.pl-4 { padding-left: 1.5rem !important; }
+.pl-5 { padding-left: 3rem !important; }
+
+.pr-0 { padding-right: 0 !important; }
+.pr-1 { padding-right: 0.25rem !important; }
+.pr-2 { padding-right: 0.5rem !important; }
+.pr-3 { padding-right: 1rem !important; }
+.pr-4 { padding-right: 1.5rem !important; }
+.pr-5 { padding-right: 3rem !important; }
+
+.px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+.px-1 { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+.px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+.px-3 { padding-left: 1rem !important; padding-right: 1rem !important; }
+.px-4 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+.px-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+
+.py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+.py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+.py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+.py-3 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+.py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+.py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+// Text alignment
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+.text-justify { text-align: justify !important; }
+
+// Text transforms
+.text-lowercase { text-transform: lowercase !important; }
+.text-uppercase { text-transform: uppercase !important; }
+.text-capitalize { text-transform: capitalize !important; }
+
+// Font weights
+.font-weight-light { font-weight: 300 !important; }
+.font-weight-normal { font-weight: 400 !important; }
+.font-weight-bold { font-weight: 700 !important; }
+
+// Text colors
+.text-primary { color: $accent-color !important; }
+.text-secondary { color: $secondary-color !important; }
+.text-success { color: $success-color !important; }
+.text-warning { color: $warning-color !important; }
+.text-danger { color: $danger-color !important; }
+.text-info { color: $info-color !important; }
+.text-muted { color: rgba($text-color, 0.6) !important; }
+
+// Background colors
+.bg-primary { background-color: $accent-color !important; }
+.bg-secondary { background-color: $secondary-color !important; }
+.bg-success { background-color: $success-color !important; }
+.bg-warning { background-color: $warning-color !important; }
+.bg-danger { background-color: $danger-color !important; }
+.bg-info { background-color: $info-color !important; }
+.bg-light { background-color: lighten($bg-color, 5%) !important; }
+.bg-dark { background-color: darken($bg-color, 10%) !important; }
+
+// Display
+.d-none { display: none !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+.d-block { display: block !important; }
+.d-flex { display: flex !important; }
+.d-inline-flex { display: inline-flex !important; }
+.d-grid { display: grid !important; }
+
+// Flex
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.flex-row-reverse { flex-direction: row-reverse !important; }
+.flex-column-reverse { flex-direction: column-reverse !important; }
+
+.flex-wrap { flex-wrap: wrap !important; }
+.flex-nowrap { flex-wrap: nowrap !important; }
+.flex-wrap-reverse { flex-wrap: wrap-reverse !important; }
+
+.justify-content-start { justify-content: flex-start !important; }
+.justify-content-end { justify-content: flex-end !important; }
+.justify-content-center { justify-content: center !important; }
+.justify-content-between { justify-content: space-between !important; }
+.justify-content-around { justify-content: space-around !important; }
+.justify-content-evenly { justify-content: space-evenly !important; }
+
+.align-items-start { align-items: flex-start !important; }
+.align-items-end { align-items: flex-end !important; }
+.align-items-center { align-items: center !important; }
+.align-items-baseline { align-items: baseline !important; }
+.align-items-stretch { align-items: stretch !important; }
+
+.align-self-start { align-self: flex-start !important; }
+.align-self-end { align-self: flex-end !important; }
+.align-self-center { align-self: center !important; }
+.align-self-baseline { align-self: baseline !important; }
+.align-self-stretch { align-self: stretch !important; }
+
+.flex-grow-0 { flex-grow: 0 !important; }
+.flex-grow-1 { flex-grow: 1 !important; }
+.flex-shrink-0 { flex-shrink: 0 !important; }
+.flex-shrink-1 { flex-shrink: 1 !important; }
+
+// Position
+.position-static { position: static !important; }
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.position-fixed { position: fixed !important; }
+.position-sticky { position: sticky !important; }
+
+// Sizing
+.w-25 { width: 25% !important; }
+.w-50 { width: 50% !important; }
+.w-75 { width: 75% !important; }
+.w-100 { width: 100% !important; }
+.w-auto { width: auto !important; }
+
+.h-25 { height: 25% !important; }
+.h-50 { height: 50% !important; }
+.h-75 { height: 75% !important; }
+.h-100 { height: 100% !important; }
+.h-auto { height: auto !important; }
+
+// Borders
+.border { border: 1px solid rgba($text-color, 0.2) !important; }
+.border-top { border-top: 1px solid rgba($text-color, 0.2) !important; }
+.border-right { border-right: 1px solid rgba($text-color, 0.2) !important; }
+.border-bottom { border-bottom: 1px solid rgba($text-color, 0.2) !important; }
+.border-left { border-left: 1px solid rgba($text-color, 0.2) !important; }
+
+.border-0 { border: 0 !important; }
+.border-top-0 { border-top: 0 !important; }
+.border-right-0 { border-right: 0 !important; }
+.border-bottom-0 { border-bottom: 0 !important; }
+.border-left-0 { border-left: 0 !important; }
+
+.border-primary { border-color: $accent-color !important; }
+.border-secondary { border-color: $secondary-color !important; }
+.border-success { border-color: $success-color !important; }
+.border-warning { border-color: $warning-color !important; }
+.border-danger { border-color: $danger-color !important; }
+.border-info { border-color: $info-color !important; }
+
+// Border radius
+.rounded { border-radius: $border-radius !important; }
+.rounded-top {
+  border-top-left-radius: $border-radius !important;
+  border-top-right-radius: $border-radius !important;
+}
+.rounded-right {
+  border-top-right-radius: $border-radius !important;
+  border-bottom-right-radius: $border-radius !important;
+}
+.rounded-bottom {
+  border-bottom-right-radius: $border-radius !important;
+  border-bottom-left-radius: $border-radius !important;
+}
+.rounded-left {
+  border-top-left-radius: $border-radius !important;
+  border-bottom-left-radius: $border-radius !important;
+}
+.rounded-circle { border-radius: 50% !important; }
+.rounded-pill { border-radius: 50rem !important; }
+.rounded-0 { border-radius: 0 !important; }
+
+// Visibility
+.visible { visibility: visible !important; }
+.invisible { visibility: hidden !important; }
+
+// Miscellaneous
+.overflow-auto { overflow: auto !important; }
+.overflow-hidden { overflow: hidden !important; }
+
+.shadow-sm { 
+  box-shadow: 
+    3px 3px 6px 0 $shadow-dark,
+    -3px -3px 6px 0 $shadow-light !important;
+}
+.shadow {
+  box-shadow: 
+    6px 6px 12px 0 $shadow-dark,
+    -6px -6px 12px 0 $shadow-light !important;
+}
+.shadow-lg {
+  box-shadow: 
+    12px 12px 24px 0 $shadow-dark,
+    -12px -12px 24px 0 $shadow-light !important;
+}
+.shadow-inset {
+  box-shadow: 
+    inset 3px 3px 6px 0 $shadow-dark,
+    inset -3px -3px 6px 0 $shadow-light !important;
+}
+.shadow-none { box-shadow: none !important; }
+
+// Special Neomorphic Components
+// ------------------------------------------------
+
+// Neumorphic Avatar
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: $bg-color;
+  @include neo-raised;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  &.avatar-sm {
+    width: 32px;
+    height: 32px;
+  }
+  
+  &.avatar-lg {
+    width: 64px;
+    height: 64px;
+  }
+  
+  // Avatar with text
+  &.avatar-text {
+    font-weight: 600;
+    color: $accent-color;
+    font-size: 1.25rem;
+    
+    &.avatar-sm {
+      font-size: 0.875rem;
+    }
+    
+    &.avatar-lg {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// Neumorphic Divider
+.divider {
+  position: relative;
+  height: 1px;
+  margin: 2rem 0;
+  background: rgba($text-color, 0.1);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(white, 0.5);
+  }
+  
+  // Divider with text
+  &.divider-text {
+    display: flex;
+    align-items: center;
+    height: auto;
+    background: none;
+    
+    &::before, &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba($text-color, 0.1);
+    }
+    
+    &::before {
+      position: static;
+      margin-right: 1rem;
+    }
+    
+    &::after {
+      margin-left: 1rem;
+    }
+    
+    span {
+      padding: 0.25rem 0.5rem;
+      background-color: $bg-color;
+      border-radius: $border-radius-sm;
+      @include neo-raised;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// Media queries for responsive design
+// ------------------------------------------------
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+// Dark mode (optional)
+// ------------------------------------------------
+// Uncomment and customize this section if you want dark mode support
+
+/*
+.dark-mode {
+  --bg-color: #202020;
+  --text-color: #e0e0e0;
+  --shadow-dark: rgba(0, 0, 0, 0.25);
+  --shadow-light: rgba(255, 255, 255, 0.1);
+  
+  // Add more custom dark mode styles here
+}
+*/
+
+// Navigation
+// ------------------------------------------------
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: $bg-color;
+  @include neo-raised;
+  margin-bottom: 1.5rem;
+  
+  &-brand {
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: inherit;
+    white-space: nowrap;
+    color: $text-color;
+    text-decoration: none;
+  }
+  
+  &-nav {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    
+    .nav-item {
+      margin-right: 0.5rem;
+      
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    
+    .nav-link {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: $text-color;
+      border-radius: $border-radius;
+      @include neo-transition;
+      
+      &:hover, &:focus {
+        @include neo-raised;
+      }
+      
+      &.active {
+        color: $accent-color;
+        @include neo-raised;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    &-nav {
+      flex-direction: column;
+      width: 100%;
+      margin-top: 1rem;
+      
+      .nav-item {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+// Tables
+// ------------------------------------------------
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid rgba($text-color, 0.1);
+  }
+  
+  thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid rgba($text-color, 0.1);
+    font-weight: 600;
+  }
+  
+  tbody + tbody {
+    border-top: 2px solid rgba($text-color, 0.1);
+  }
+  
+  // Responsive Table
+  &-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: $bg-color;
+    border-radius: $border-radius;
+    @include neo-raised;
+    padding: 1rem;
+    
+    .table {
+      margin-bottom: 0;
+    }
+  }
+  
+  // Table Variants
+  &-hover {
+    tbody tr:hover {
+      background-color: rgba($text-color, 0.05);
+    }
+  }
+  
+  &-striped {
+    tbody tr:nth-of-type(odd) {
+      background-color: rgba($text-color, 0.03);
+    }
+  }
+}
+
+// Pagination
+// ------------------------------------------------
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: $border-radius;
+  
+  .page-item {
+    &:first-child .page-link {
+      margin-left: 0;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
+    
+    &:last-child .page-link {
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+    
+    &.active .page-link {
+      color: $accent-color;
+      background-color: $bg-color;
+      @include neo-pressed;
+    }
+    
+    &.disabled .page-link {
+      color: rgba($text-color, 0.4);
+      cursor: not-allowed;
+      background-color: $bg-color;
+    }
+  }
+  
+  .page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: $text-color;
+    background-color: $bg-color;
+    @include neo-transition;
+    
+    &:hover {
+      color: $accent-color;
+      text-decoration: none;
+      background-color: darken($bg-color, 3%);
+    }
+    
+    &:focus {
+      z-index: 3;
+      outline: 0;
+      @include neo-pressed;
+    }
+  }
+}
+
+// Accordion
+// ------------------------------------------------
+.accordion {
+  border-radius: $border-radius;
+  @include neo-raised;
+  overflow: hidden;
+  
+  &-item {
+    background-color: $bg-color;
+    border-bottom: 1px solid rgba($text-color, 0.1);
+    
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  
+  &-header {
+    margin-bottom: 0;
+    
+    .accordion-button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: $text-color;
+      text-align: left;
+      background-color: $bg-color;
+      border: 0;
+      border-radius: 0;
+      overflow-anchor: none;
+      @include neo-transition;
+      cursor: pointer;
+      
+      &::after {
+        content: '+';
+        flex-shrink: 0;
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-left: auto;
+        text-align: center;
+        line-height: 1.2;
+        transition: transform 0.2s ease-in-out;
+      }
+      
+      &:not(.collapsed) {
+        color: $accent-color;
+        background-color: darken($bg-color, 3%);
+        
+        &::after {
+          content: '-';
+        }
+      }
+      
+      &:hover {
+        background-color: darken($bg-color, 3%);
+      }
+    }
+  }
+  
+  &-body {
+    padding: 1rem 1.25rem;
+    background-color: $bg-color;
+  }
+}
+
+// Modal
+// ------------------------------------------------
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  &-content {
+    width: 90%;
+    max-width: 500px;
+    background-color: $bg-color;
+    border-radius: $border-radius;
+    @include neo-raised;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    
+    .modal.active & {
+      transform: translateY(0);
+    }
+  }
+  
+  &-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba($text-color, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    .modal-title {
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+    
+    .close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: $text-color;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  
+  &-body {
+    padding: 1.5rem;
+  }
+  
+  &-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba($text-color, 0.1);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+}
+
+// Loader/Spinner
+// ------------------------------------------------
+.loader {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid $bg-color;
+  border-top-color: $accent-color;
+  animation: spin 1s linear infinite;
+  @include neo-raised;
+  
+  &.loader-sm {
+    width: 24px;
+    height: 24px;
+    border-width: 3px;
+  }
+  
+  &.loader-lg {
+    width: 60px;
+    height: 60px;
+    border-width: 6px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Knob/Dial (CSS-only approximation)
+// ------------------------------------------------
+.knob {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: $bg-color;
+  @include neo-raised;
+  margin: 0 auto;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 3px;
+    height: 20px;
+    background-color: $accent-color;
+    border-radius: 1.5px;
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+  }
+  
+  &-indicator {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    @include neo-inset;
+  }
+  
+  // Knob sizes
+  &.knob-sm {
+    width: 60px;
+    height: 60px;
+    
+    &::after {
+      height: 15px;
+    }
+  }
+  
+  &.knob-lg {
+    width: 120px;
+    height: 120px;
+    
+    &::after {
+      top: 15px;
+      width: 4px;
+      height: 30px;
+    }
+  }
+}
+
+// List Group
+// ------------------------------------------------
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: $border-radius;
+  overflow: hidden;
+  @include neo-raised;
+  
+  .list-group-item {
+    position: relative;
+    display: block;
+    padding: 1rem 1.25rem;
+    background-color: $bg-color;
+    border-bottom: 1px solid rgba($text-color, 0.1);
+    
+    &:first-child {
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+    }
+    
+    &:last-child {
+      border-bottom-width: 0;
+      border-bottom-right-radius: inherit;
+      border-bottom-left-radius: inherit;
+    }
+    
+    &.active {
+      z-index: 2;
+      color: white;
+      background-color: $accent-color;
+      border-color: $accent-color;
+    }
+    
+    &:hover:not(.active) {
+      background-color: darken($bg-color, 5%);
+    }
+  }
+}
+
+code {
+  font-family: $font-family;
+  background-color: darken($bg-color, 5%);
+  padding: 0.2rem 0.4rem;
+  border-radius: $border-radius-sm;
+  @include neo-inset;
+}
+
+// Layout
+// ------------------------------------------------
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -1rem;
+}
+
+.col {
+  flex: 1;
+  padding: 0 1rem;
+  min-width: 0;
+  
+  // Responsive columns
+  @media (max-width: 768px) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+// For specific column widths
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    flex: 0 0 percentage($i / 12);
+    max-width: percentage($i / 12);
+    padding: 0 1rem;
+    
+    @media (max-width: 768px) {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+// Section dividers
+.section {
+  margin-bottom: 2.5rem;
+}
+
+// Buttons
+// ------------------------------------------------
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+  padding: 12px;
+  font-family: $font-family;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $text-color;
+  background-color: $bg-color;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  margin: 0.25rem;
+  user-select: none;
+  
+  // Advanced neomorphic shadow directly from the provided CSS
+  box-shadow: 
+    inset 1px 1px 1px 0 rgb(255, 255, 255),
+    inset -1px -1px 1px 0 rgba(0, 0, 0, 0.15),
+    0.444584px 0.444584px 0.628737px -1px rgba(0, 0, 0, 0.26),
+    1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.247),
+    2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.23),
+    5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.192),
+    10px 10px 21.2132px -3.75px rgba(0, 0, 0, 0.056),
+    -0.5px -0.5px 0 0 rgb(0 0 0/5%);
+  
+  transition: box-shadow $transition-speed $transition-function;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+  
+  &:active, &[data-selected] {
+    transform: translateY(0);
+    // Shadow directly from the provided CSS for active state
+    box-shadow: 
+      inset 0.5px 0.5px 1px #fff,
+      inset -0.5px -0.5px 1px #00000026,
+      0.222px 0.222px 0.314px -0.5px #0003,
+      0.605px 0.605px 0.856px -1px #0000002e,
+      1.329px 1.329px 1.88px -1.5px #00000040,
+      2.95px 2.95px 4.172px -2px #0000001a,
+      2.5px 2.5px 3px -2.5px #00000026,
+      -0.5px -0.5px 0 0 rgb(0 0 0/10%);
+  }
+  
+  &:focus {
+    @include neo-focus;
+  }
+  
+  // Icon inside button
+  i, .icon {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    
+    &:only-child {
+      margin-right: 0;
+    }
+  }
+  
+  // Button sizes
+  &.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    border-radius: $border-radius-sm;
+  }
+  
+  &.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: $border-radius-lg;
+  }
+  
+  // Button Variants
+  &.btn-primary, &[data-color=primary] {
+    color: #fff;
+    background: var(--primary, $accent-color);
+    box-shadow: 
+      inset 1px 1px 1px #ffffffd4,
+      inset -1px -1px 1px #0000003b,
+      0.444584px 0.444584px 0.628737px -1px #00000042,
+      1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+      2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+      5.90083px 5.90083px 8.34503px -3px #00000031,
+      10px 10px 21.2132px -3.75px #0000003b,
+      -0.5px -0.5px #952b0087;
+    
+    &:hover {
+      background-color: lighten($accent-color, 5%);
+    }
+    
+    &:active, &[data-selected] {
+      box-shadow:
+        inset 0.5px 0.5px 1px #fff,
+        inset -0.5px -0.5px 1px #0000005b,
+        0.222px 0.222px 0.314px -1px #0003,
+        0.605px 0.605px 0.856px -1px #0000002e,
+        1.329px 1.329px 1.88px -1.5px #00000040,
+        2.95px 2.95px 4.172px -2px #0000001a,
+        2.5px 2.5px 3px -2.5px #00000026,
+        -0.5px -0.5px #00000022;
+    }
+  }
+  
+  &.btn-secondary, &[data-color=secondary] {
+    color: #fff;
+    background: #222;
+    box-shadow: 
+      inset 1px 1px 1px #ffffffb3,
+      inset -1px -1px 1px #0000003b,
+      0.444584px 0.444584px 0.628737px -0.75px #00000042,
+      1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+      2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+      5.90083px 5.90083px 8.34503px -3px #00000031,
+      14px 14px 21.2132px -3.75px #00000033,
+      -0.5px -0.5px #000000af;
+    
+    &:hover {
+      background-color: lighten(#222, 5%);
+    }
+    
+    &:active, &[data-selected] {
+      box-shadow:
+        inset 0.5px 0.5px 1px #ffffffb3,
+        inset -0.5px -0.5px 1px #0000005b,
+        0.222px 0.222px 0.314px -1px #0003,
+        0.605px 0.605px 0.856px -1px #0000002e,
+        1.329px 1.329px 1.88px -1.5px #00000040,
+        2.95px 2.95px 4.172px -2px #0000001a,
+        4px 4px 3px -2.5px #00000026,
+        -0.5px -0.5px #000000ac;
+    }
+  }
+
+  &[data-color=tertiary] {
+    color: #fff;
+    background: #6a6a6a;
+    box-shadow: 
+      inset 1px 1px 1px #ffffffba,
+      inset -1px -1px 1px #0000003b,
+      0.444584px 0.444584px 0.628737px -1px #00000042,
+      1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+      2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+      5.90083px 5.90083px 8.34503px -3px #0000004f,
+      12px 12px 21.2132px -3.75px #0000001a,
+      -0.5px -0.5px #0000006b;
+    
+    &:active, &[data-selected] {
+      box-shadow:
+        inset 0.5px 0.5px 1px #ffffffba,
+        inset -0.5px -0.5px 1px #0000005b,
+        0.222px 0.222px 0.314px -1px #0003,
+        0.605px 0.605px 0.856px -1px #0000002e,
+        1.329px 1.329px 1.88px -1.5px #00000040,
+        2.95px 2.95px 4.172px -2px #0000001a,
+        4px 4px 3px -2.5px #00000026,
+        -0.5px -0.5px #0000007b;
+    }
+  }
+
+  &[data-color=neutral] {
+    color: #fff;
+    background: #aaa;
+    box-shadow: 
+      inset 1px 1px 1px #ffffffc2,
+      inset -1px -1px 1px #0000003b,
+      0.444584px 0.444584px 0.628737px -1px #00000042,
+      1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+      2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+      5.90083px 5.90083px 8.34503px -3px #00000031,
+      10px 10px 21.2132px -3.75px #0000000e,
+      -0.5px -0.5px #00000012;
+    
+    &:active, &[data-selected] {
+      box-shadow:
+        inset 0.5px 0.5px 1px #fff,
+        inset -0.5px -0.5px 1px #0000005b,
+        0.222px 0.222px 0.314px -1px #0003,
+        0.605px 0.605px 0.856px -1px #0000002e,
+        1.329px 1.329px 1.88px -1.5px #00000040,
+        2.95px 2.95px 4.172px -2px #0000001a,
+        2.5px 2.5px 3px -2.5px #00000026,
+        -0.5px -0.5px #00000022;
+    }
+  }
+  
+  // Block buttons (full width)
+  &[data-block], &.btn-block {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  // Disabled state
+  &:disabled,
+  &.disabled,
+  &[data-disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+  
+  // LED indicator (from the provided CSS)
+  .led {
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 1px 1px 2px #0000001c, 0 1px 0 0 #ffffff30;
+    transition: background-color 0.15s ease;
+  }
+  
+  &[data-selected] .led {
+    background: var(--primary, $accent-color);
+  }
+}
+
+// Button Group
+.btn-group {
+  display: inline-flex;
+  position: relative;
+  
+  .btn {
+    position: relative;
+    flex: 1 1 auto;
+    margin: 0;
+    
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-left: -1px;
+    }
+    
+    &:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+// Forms
+// ------------------------------------------------
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $text-color;
+}
+
+// Basic Input Styling - updated with reference CSS style
+.input,
+.textarea,
+.select {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-color;
+  background-color: $bg-color;
+  border: none;
+  border-radius: $border-radius;
+  transition: all $transition-speed $transition-function;
+  
+  // Advanced neomorphic inset shadow
+  box-shadow: 
+    inset 1px 1px 1px rgba(0, 0, 0, 0.1),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.7),
+    0.5px 0.5px 0 0 rgba(255, 255, 255, 0.7);
+  
+  &:focus {
+    outline: none;
+    box-shadow: 
+      inset 1px 1px 2px rgba(0, 0, 0, 0.15),
+      inset -1px -1px 2px rgba(255, 255, 255, 0.7),
+      0 0 0 2px rgba($accent-color, 0.2);
+  }
+  
+  &::placeholder {
+    color: lighten($text-color, 40%);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Textarea specific
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+// Select specific
+.select-wrapper {
+  position: relative;
+  
+  &::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 0.8rem;
+    color: $text-color;
+  }
+  
+  .select {
+    appearance: none;
+    padding-right: 2.5rem;
+    cursor: pointer;
+    
+    &::-ms-expand {
+      display: none;
+    }
+  }
+}
+
+// Input Group (with icons or addons)
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  
+  .input-icon {
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+    pointer-events: none;
+    color: rgba($text-color, 0.6);
+    z-index: 1;
+    
+    &-left {
+      left: 0;
+    }
+    
+    &-right {
+      right: 0;
+    }
+  }
+  
+  .input {
+    &-icon-left + & {
+      padding-left: 2.75rem;
+    }
+    
+    &-icon-right + & {
+      padding-right: 2.75rem;
+    }
+  }
+}
+
+// Checkbox & Radio Elements - updated with better styling
+.checkbox-wrapper,
+.radio-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  user-select: none;
+  
+  input[type="checkbox"],
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+    & + label {
+      position: relative;
+      cursor: pointer;
+      padding-left: 2.5rem;
+      margin-bottom: 0;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: $bg-color;
+        transition: all $transition-speed $transition-function;
+      }
+    }
+  }
+}
+
+// Checkbox specific - updated with reference CSS style
+.checkbox-wrapper {
+  input[type="checkbox"] {
+    & + label::before {
+      border-radius: $border-radius-sm;
+      box-shadow: 
+        inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.15),
+        inset -0.5px -0.5px 1px rgba(255, 255, 255, 0.7),
+        0.444584px 0.444584px 0.628737px -1px rgba(0, 0, 0, 0.2),
+        1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.19);
+    }
+    
+    &:checked + label::after {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 50%;
+      transform: translateY(-70%) rotate(45deg);
+      width: 0.4rem;
+      height: 0.8rem;
+      border: solid $accent-color;
+      border-width: 0 2px 2px 0;
+    }
+    
+    &:focus + label::before {
+      box-shadow: 
+        inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.15),
+        inset -0.5px -0.5px 1px rgba(255, 255, 255, 0.7),
+        0 0 0 2px rgba($accent-color, 0.2);
+    }
+    
+    &:checked + label::before {
+      background-color: $bg-color;
+      box-shadow: 
+        inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.15),
+        inset -0.5px -0.5px 1px rgba(255, 255, 255, 0.7),
+        0 0 0 2px rgba($accent-color, 0.2);
+    }
+  }
+}
+
+// Radio specific
+.radio-wrapper {
+  input[type="radio"] {
+    & + label::before {
+      border-radius: 50%;
+      box-shadow: 
+        inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.15),
+        inset -0.5px -0.5px 1px rgba(255, 255, 255, 0.7),
+        0.444584px 0.444584px 0.628737px -1px rgba(0, 0, 0, 0.2),
+        1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.19);
+    }
+    
+    &:checked + label::after {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background-color: $accent-color;
+    }
+    
+    &:focus + label::before {
+      box-shadow: 
+        inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.15),
+        inset -0.5px -0.5px 1px rgba(255, 255, 255, 0.7),
+        0 0 0 2px rgba($accent-color, 0.2);
+    }
+    
+    &:checked + label::before {
+      background-color: $bg-color;
+      box-shadow: 
+        inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.15),
+        inset -0.5px -0.5px 1px rgba(255, 255, 255, 0.7),
+        0 0 0 2px rgba($accent-color, 0.2);
+    }
+  }
+}
+
+// Range Slider - updated with reference CSS styling
+.slider-wrapper {
+  position: relative;
+  height: 2rem;
+  
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    width: 100%;
+    position: absolute;
+    height: 18px;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    
+    &:focus {
+      outline: none;
+    }
+    
+    // Track styling
+    &::-webkit-slider-runnable-track {
+      height: 8px;
+      cursor: pointer;
+      background: $bg-color;
+      border-radius: 4px;
+      box-shadow: 
+        inset 1px 1px 2px rgba(0, 0, 0, 0.15),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.7);
+    }
+    
+    &::-moz-range-track {
+      height: 8px;
+      cursor: pointer;
+      background: $bg-color;
+      border-radius: 4px;
+      box-shadow: 
+        inset 1px 1px 2px rgba(0, 0, 0, 0.15),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.7);
+    }
+    
+    // Thumb styling
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 18px;
+      width: 18px;
+      margin-top: -5px;
+      background: #f4f4f4;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.15s ease;
+      box-shadow: 
+        inset 1px 1px 1px #fff,
+        inset -1px -1px 0 #0000001a,
+        0.444584px 0.444584px 0.628737px -0.75px #00000042,
+        1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+        2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+        5.90083px 5.90083px 8.34503px -3px #00000031;
+    }
+    
+    &::-moz-range-thumb {
+      height: 18px;
+      width: 18px;
+      background: #f4f4f4;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.15s ease;
+      box-shadow: 
+        inset 1px 1px 1px #fff,
+        inset -1px -1px 0 #0000001a,
+        0.444584px 0.444584px 0.628737px -0.75px #00000042,
+        1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+        2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+        5.90083px 5.90083px 8.34503px -3px #00000031;
+    }
+    
+    // Hover state
+    &:hover {
+      &::-webkit-slider-thumb {
+        transform: scale(1.1);
+      }
+      
+      &::-moz-range-thumb {
+        transform: scale(1.1);
+      }
+    }
+    
+    // Active state
+    &:active {
+      &::-webkit-slider-thumb {
+        box-shadow: 
+          inset 1px 1px 2px rgba(0, 0, 0, 0.2),
+          inset -1px -1px 2px rgba(255, 255, 255, 0.7);
+      }
+      
+      &::-moz-range-thumb {
+        box-shadow: 
+          inset 1px 1px 2px rgba(0, 0, 0, 0.2),
+          inset -1px -1px 2px rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+  
+  // Label styling
+  .slider-value {
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: $border-radius-sm;
+    font-size: 0.875rem;
+    background: $bg-color;
+    transform: translateX(-50%);
+    box-shadow: 
+      1px 1px 2px rgba(0, 0, 0, 0.1), 
+      -1px -1px 2px rgba(255, 255, 255, 0.5);
+    
+    &:after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: $bg-color;
+    }
+  }
+}
+
+// File input - updated with reference CSS style
+.file-input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  
+  input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  
+  label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+    color: $text-color;
+    background-color: $bg-color;
+    border-radius: $border-radius;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    box-shadow: 
+      inset 1px 1px 1px #fff,
+      inset -1px -1px 0 #0000001a,
+      0.444584px 0.444584px 0.628737px -0.75px #00000042,
+      1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+      2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+      5.90083px 5.90083px 8.34503px -3px #00000031;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        inset 1px 1px 1px #fff,
+        inset -1px -1px 0 #0000001a,
+        0.444584px 0.444584px 0.628737px -0.75px #00000042,
+        1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+        2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+        5.90083px 5.90083px 8.34503px -3px #00000031,
+        8px 8px 15px rgba(0, 0, 0, 0.07);
+    }
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: 
+        inset 1px 1px 2px rgba(0, 0, 0, 0.2),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.7);
+    }
+    
+    i, svg {
+      margin-right: 0.75rem;
+      font-size: 1rem;
+    }
+  }
+  
+  &.file-input-sm {
+    label {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  &.file-input-lg {
+    label {
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+    }
+  }
+  
+  .file-name {
+    display: inline-block;
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: rgba($accent-color, 0.1);
+    border-radius: $border-radius-sm;
+  }
+}
+
+// Cards
+// ------------------------------------------------
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: $bg-color;
+  border-radius: $border-radius;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  // Advanced neomorphic shadow from the provided CSS
+  box-shadow: 
+    inset 1px 1px 1px 0 $shadow-light,
+    inset -1px -1px 1px 0 $shadow-dark,
+    0.444584px 0.444584px 0.628737px -1px rgba(0, 0, 0, 0.26),
+    1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.247),
+    2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.23),
+    5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.192),
+    10px 10px 21.2132px -3.75px rgba(0, 0, 0, 0.056),
+    -0.5px -0.5px 0 0 $shadow-semi;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+  
+  &-header {
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0;
+    background-color: rgba($shadow-light, 0.3);
+    border-bottom: 1px solid rgba($text-color, 0.05);
+    
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 0;
+    }
+  }
+  
+  &-body {
+    flex: 1 1 auto;
+    padding: 1.5rem;
+  }
+  
+  &-footer {
+    padding: 1.25rem 1.5rem;
+    background-color: rgba($shadow-light, 0.3);
+    border-top: 1px solid rgba($text-color, 0.05);
+  }
+  
+  // Card Variants
+  &.card-flat {
+    @include neo-flat;
+  }
+  
+  &.card-primary {
+    background-color: $accent-color;
+    color: white;
+    box-shadow: 
+      inset 1px 1px 1px rgba(255, 255, 255, 0.83),
+      inset -1px -1px 1px rgba(0, 0, 0, 0.23),
+      0.444584px 0.444584px 0.628737px -1px rgba(0, 0, 0, 0.26),
+      1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.247),
+      2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.23),
+      5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.192),
+      10px 10px 21.2132px -3.75px rgba(0, 0, 0, 0.23),
+      -0.5px -0.5px 0 0 rgba(149, 43, 0, 0.53);
+  }
+  
+  &.card-secondary {
+    background-color: #222;
+    color: white;
+    box-shadow: 
+      inset 1px 1px 1px rgba(255, 255, 255, 0.7),
+      inset -1px -1px 1px rgba(0, 0, 0, 0.23),
+      0.444584px 0.444584px 0.628737px -0.75px rgba(0, 0, 0, 0.26),
+      1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.247),
+      2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.23),
+      5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.192),
+      14px 14px 21.2132px -3.75px rgba(0, 0, 0, 0.2),
+      -0.5px -0.5px 0 0 rgba(0, 0, 0, 0.69);
+  }
+  
+  // Card with accent
+  &.card-accent {
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background-color: $accent-color;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
+    
+    &.card-accent-primary::before { background-color: $accent-color; }
+    &.card-accent-secondary::before { background-color: $secondary-color; }
+    &.card-accent-success::before { background-color: $success-color; }
+    &.card-accent-warning::before { background-color: $warning-color; }
+    &.card-accent-danger::before { background-color: $danger-color; }
+    &.card-accent-info::before { background-color: $info-color; }
+  }
+}
+
+// Card Groups
+.card-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.75rem;
+  
+  .card {
+    flex: 1 0 calc(33.333% - 1.5rem);
+    margin: 0 0.75rem 1.5rem;
+    
+    @media (max-width: 992px) {
+      flex: 1 0 calc(50% - 1.5rem);
+    }
+    
+    @media (max-width: 576px) {
+      flex: 1 0 calc(100% - 1.5rem);
+    }
+  }
+}
+
+// Tabs
+// ------------------------------------------------
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  background-color: $bg-color;
+  border-radius: $border-radius;
+  @include neo-raised;
+  padding: 0.5rem;
+  
+  &-tab {
+    appearance: none;
+    border: none;
+    background: none;
+    padding: 1rem 1.5rem;
+    margin: 0 0.25rem;
+    border-radius: $border-radius;
+    font-family: $font-family;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $text-color;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    @include neo-transition;
+    
+    &:hover {
+      color: $accent-color;
+    }
+    
+    &.active {
+      color: $accent-color;
+      @include neo-pressed;
+    }
+    
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  &-content {
+    margin-top: 1.5rem;
+  }
+}
+
+.tab-pane {
+  display: none;
+  
+  &.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Alerts & Notifications
+// ------------------------------------------------
+.alert {
+  position: relative;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: $border-radius;
+  font-weight: 500;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 6px;
+  }
+  
+  // Alert variants
+  &.alert-primary {
+    color: darken($accent-color, 15%);
+    background-color: rgba($accent-color, 0.07);
+    @include neo-raised;
+    
+    &::before {
+      background-color: $accent-color;
+    }
+  }
+  
+  &.alert-secondary {
+    color: darken($secondary-color, 15%);
+    background-color: rgba($secondary-color, 0.07);
+    @include neo-raised;
+    
+    &::before {
+      background-color: $secondary-color;
+    }
+  }
+  
+  &.alert-success {
+    color: darken($success-color, 15%);
+    background-color: rgba($success-color, 0.07);
+    @include neo-raised;
+    
+    &::before {
+      background-color: $success-color;
+    }
+  }
+  
+  &.alert-warning {
+    color: darken($warning-color, 20%);
+    background-color: rgba($warning-color, 0.07);
+    @include neo-raised;
+    
+    &::before {
+      background-color: $warning-color;
+    }
+  }
+  
+  &.alert-danger {
+    color: darken($danger-color, 15%);
+    background-color: rgba($danger-color, 0.07);
+    @include neo-raised;
+    
+    &::before {
+      background-color: $danger-color;
+    }
+  }
+  
+  // Dismissible alert
+  &.alert-dismissible {
+    padding-right: 4rem;
+    
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 1.25rem 1.5rem;
+      color: inherit;
+      background: none;
+      border: none;
+      cursor: pointer;
+      opacity: 0.7;
+      font-size: 1.25rem;
+      transition: opacity 0.2s ease;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// Badges
+// ------------------------------------------------
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 10rem;
+  background-color: $bg-color;
+  color: $text-color;
+  box-shadow: 
+    3px 3px 6px 0 $shadow-dark,
+    -3px -3px 6px 0 $shadow-light;
+  margin: 0 0.25rem;
+  
+  // Badge variants
+  &.badge-primary {
+    background-color: $accent-color;
+    color: white;
+    box-shadow: 
+      3px 3px 6px 0 rgba(darken($accent-color, 30%), 0.4),
+      -2px -2px 4px 0 rgba(lighten($accent-color, 10%), 0.8);
+  }
+  
+  &.badge-secondary {
+    background-color: $secondary-color;
+    color: white;
+    box-shadow: 
+      3px 3px 6px 0 rgba(darken($secondary-color, 30%), 0.4),
+      -2px -2px 4px 0 rgba(lighten($secondary-color, 10%), 0.8);
+  }
+  
+  &.badge-success {
+    background-color: $success-color;
+    color: white;
+    box-shadow: 
+      3px 3px 6px 0 rgba(darken($success-color, 30%), 0.4),
+      -2px -2px 4px 0 rgba(lighten($success-color, 10%), 0.8);
+  }
+  
+  &.badge-warning {
+    background-color: $warning-color;
+    color: $text-color;
+    box-shadow: 
+      3px 3px 6px 0 rgba(darken($warning-color, 30%), 0.4),
+      -2px -2px 4px 0 rgba(lighten($warning-color, 10%), 0.8);
+  }
+  
+  &.badge-danger {
+    background-color: $danger-color;
+    color: white;
+    box-shadow: 
+      3px 3px 6px 0 rgba(darken($danger-color, 30%), 0.4),
+      -2px -2px 4px 0 rgba(lighten($danger-color, 10%), 0.8);
+  }
+  
+  // Badge sizes
+  &.badge-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.625rem;
+  }
+  
+  &.badge-lg {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  // Badge shapes
+  &.badge-pill {
+    border-radius: 10rem;
+  }
+  
+  &.badge-square {
+    border-radius: $border-radius-sm;
+  }
+  
+  // Badge positions
+  &.badge-position-top-right {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+  }
+  
+  // For buttons
+  .btn & {
+    position: relative;
+    top: -1px;
+  }
+  
+  // For headings
+  h1 &, h2 &, h3 &, h4 &, h5 &, h6 & {
+    font-size: 0.625rem;
+    vertical-align: middle;
+  }
+}
+
+// Progress Bar
+// ------------------------------------------------
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  
+  .progress-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  
+  .progress-percentage {
+    font-size: 0.875rem;
+    color: rgba($text-color, 0.7);
+  }
+}
+
+.progress {
+  position: relative;
+  height: 0.75rem;
+  margin-bottom: 1.5rem;
+  background-color: $bg-color;
+  border-radius: 1rem;
+  overflow: hidden;
+  @include neo-inset;
+  
+  &-bar {
+    position: relative;
+    height: 100%;
+    border-radius: 1rem;
+    background-color: $accent-color;
+    transition: width 0.3s ease;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0.05)
+      );
+    }
+    
+    // Progress bar variants
+    &.progress-bar-success {
+      background-color: $success-color;
+    }
+    
+    &.progress-bar-warning {
+      background-color: $warning-color;
+    }
+    
+    &.progress-bar-danger {
+      background-color: $danger-color;
+    }
+    
+    &.progress-bar-info {
+      background-color: $info-color;
+    }
+  }
+  
+  // Striped progress bar
+  &.progress-striped .progress-bar {
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 1rem 1rem;
+  }
+  
+  // Animated progress bar
+  &.progress-animated .progress-bar {
+    animation: progress-bar-stripes 1s linear infinite;
+  }
+  
+  // Progress sizes
+  &.progress-sm {
+    height: 0.5rem;
+  }
+  
+  &.progress-lg {
+    height: 1.25rem;
+  }
+}
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 1rem 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+// Tooltip
+// ------------------------------------------------
+.tooltip {
+  position: relative;
+  display: inline-block;
+  
+  &-text {
+    visibility: hidden;
+    width: max-content;
+    max-width: 200px;
+    background-color: $bg-color;
+    color: $text-color;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: $border-radius;
+    @include neo-raised;
+    
+    // Position
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    // Animation
+    opacity: 0;
+    transition: opacity 0.3s;
+    
+    // Arrow
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: $bg-color transparent transparent transparent;
+    }
+  }
+  
+  &:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  // Tooltip positions
+  &.tooltip-top .tooltip-text {
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    &::after {
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-color: $bg-color transparent transparent transparent;
+    }
+  }
+  
+  &.tooltip-right .tooltip-text {
+    top: 50%;
+    left: 125%;
+    transform: translateY(-50%);
+    
+    &::after {
+      top: 50%;
+      right: 100%;
+      margin-top: -5px;
+      border-color: transparent $bg-color transparent transparent;
+    }
+  }
+  
+  &.tooltip-bottom .tooltip-text {
+    top: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    &::after {
+      bottom: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-color: transparent transparent $bg-color transparent;
+    }
+  }
+  
+  &.tooltip-left .tooltip-text {
+    top: 50%;
+    right: 125%;
+    transform: translateY(-50%);
+    
+    &::after {
+      top: 50%;
+      left: 100%;
+      margin-top: -5px;
+      border-color: transparent transparent transparent $bg-color;
+    }
+  }
+}
+
+// Toggle Switch (Neomorphic style)
+// ------------------------------------------------
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  
+  .Track {
+    position: relative;
+    width: 42px;
+    height: 25px;
+    border-radius: 100px;
+    box-shadow: inset 0 1px 2px #00000026, 0 1px 0 0 #ffffff40;
+    background: rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    user-select: none;
+    
+    &[data-state=checked] {
+      background: var(--primary, $accent-color);
+    }
+  }
+  
+  .Thumb {
+    display: block;
+    width: 21px;
+    height: 21px;
+    transform: translateX(2px);
+    border-radius: 100%;
+    transition: transform 0.25s ease;
+    will-change: transform;
+    background: #f4f4f4;
+    box-shadow: 
+      inset 1px 1px 1px #fff,
+      inset -1px -1px 0 #0000001a,
+      0.444584px 0.444584px 0.628737px -0.75px #00000042,
+      1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+      2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+      5.90083px 5.90083px 8.34503px -3px #00000031,
+      10px 10px 21.2132px -3.75px #0000000e;
+  }
+  
+  .Track[data-state=checked] .Thumb {
+    transform: translateX(19px);
+  }
+  
+  // Compatibility with existing markup
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+    & + label {
+      position: relative;
+      display: block;
+      width: 42px;
+      height: 25px;
+      border-radius: 100px;
+      box-shadow: inset 0 1px 2px #00000026, 0 1px 0 0 #ffffff40;
+      background: rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      user-select: none;
+      margin: 0;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 21px;
+        height: 21px;
+        top: 2px;
+        left: 2px;
+        border-radius: 100%;
+        transition: transform 0.25s ease;
+        will-change: transform;
+        background: #f4f4f4;
+        box-shadow: 
+          inset 1px 1px 1px #fff,
+          inset -1px -1px 0 #0000001a,
+          0.444584px 0.444584px 0.628737px -0.75px #00000042,
+          1.21072px 1.21072px 1.71222px -1.5px #0000003f,
+          2.6583px 2.6583px 3.75941px -2.25px #0000003b,
+          5.90083px 5.90083px 8.34503px -3px #00000031,
+          10px 10px 21.2132px -3.75px #0000000e;
+      }
+    }
+    
+    &:checked + label {
+      background: var(--primary, $accent-color);
+      
+      &::before {
+        transform: translateX(17px);
+      }
+    }
+    
+    &:focus + label {
+      box-shadow: 
+        inset 0 1px 2px #00000026,
+        0 1px 0 0 #ffffff40,
+        0 0 0 2px rgba($accent-color, 0.2);
+    }
+  }
+}
+
+// Footer styles from the provided CSS
+.Footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+  border-top: 1px solid transparent;
+  background: #ececec70;
+  backdrop-filter: blur(2rem);
+  -webkit-backdrop-filter: blur(2rem);
+  font-size: 1.125rem;
+  transition: border .2s ease;
+  
+  [data-scrollable=true] & {
+    border-top: 1px solid #fff;
+  }
+}
+
+@keyframes wave {
+  0%, to {
+    opacity: 0;
+  }
+  
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-wave {
+  animation: wave 1.2s cubic-bezier(.37,0,.63,1) infinite;
+  opacity: 1;
+}
+
+// DevMode Container from the provided CSS
+.DevMode-Container {
+  overflow: hidden;
+  box-shadow: var(--shadow-textarea);
+  border-radius: var(--radius-md);
+}
