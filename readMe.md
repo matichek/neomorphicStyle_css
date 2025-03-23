@@ -1,7 +1,5 @@
 # Neomorphic "NeoMorph UI" CSS
 
-![NeoMorph UI](image.png)
-
 I got inspired by OpenAI FM -  
 https://www.openai.fm/
 
@@ -32,6 +30,15 @@ Most form elements are implemented.
 - [x] Tabs
 
 ---
+
+## Screenshots
+
+![NeoMorph UI](image.png)
+
+![NeoMorph UI](image-2.png)
+
+![NeoMorph UI](image-3.png)
+
 
 Check it out :). 
 
