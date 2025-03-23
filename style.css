@@ -5,6 +5,10 @@
   --radius-sm: 4px;
   --radius-lg: 12px;
   --primary: #ff3e3e;
+  --success: #32cd32;
+  --warning: #ffd700;
+  --danger: #ff4f5e;
+  --secondary: #4fc08d;
   --font-mono: "JetBrains Mono", monospace;
 }
 
@@ -1680,14 +1684,47 @@ code {
 }
 .btn.btn-secondary, .btn[data-color=secondary] {
   color: #fff;
-  background: #222;
-  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.7019607843), inset -1px -1px 1px rgba(0, 0, 0, 0.231372549), 0.444584px 0.444584px 0.628737px -0.75px rgba(0, 0, 0, 0.2588235294), 1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.2470588235), 2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.231372549), 5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.1921568627), 14px 14px 21.2132px -3.75px rgba(0, 0, 0, 0.2), -0.5px -0.5px rgba(0, 0, 0, 0.6862745098);
+  background: var(--secondary, #4fc08d);
+  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.7019607843), inset -1px -1px 1px rgba(0, 0, 0, 0.231372549), 0.444584px 0.444584px 0.628737px -0.75px rgba(0, 0, 0, 0.2588235294), 1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.2470588235), 2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.231372549), 5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.1921568627), 14px 14px 21.2132px -3.75px rgba(0, 0, 0, 0.2), -0.5px -0.5px rgba(0, 0, 0, 0.2);
 }
 .btn.btn-secondary:hover, .btn[data-color=secondary]:hover {
-  background-color: #2f2f2f;
+  background-color: #62c799;
 }
 .btn.btn-secondary:active, .btn.btn-secondary[data-selected], .btn[data-color=secondary]:active, .btn[data-color=secondary][data-selected] {
-  box-shadow: inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.7019607843), inset -0.5px -0.5px 1px rgba(0, 0, 0, 0.3568627451), 0.222px 0.222px 0.314px -1px rgba(0, 0, 0, 0.2), 0.605px 0.605px 0.856px -1px rgba(0, 0, 0, 0.1803921569), 1.329px 1.329px 1.88px -1.5px rgba(0, 0, 0, 0.2509803922), 2.95px 2.95px 4.172px -2px rgba(0, 0, 0, 0.1019607843), 4px 4px 3px -2.5px rgba(0, 0, 0, 0.1490196078), -0.5px -0.5px rgba(0, 0, 0, 0.6745098039);
+  box-shadow: inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.7019607843), inset -0.5px -0.5px 1px rgba(0, 0, 0, 0.3568627451), 0.222px 0.222px 0.314px -1px rgba(0, 0, 0, 0.2), 0.605px 0.605px 0.856px -1px rgba(0, 0, 0, 0.1803921569), 1.329px 1.329px 1.88px -1.5px rgba(0, 0, 0, 0.2509803922), 2.95px 2.95px 4.172px -2px rgba(0, 0, 0, 0.1019607843), 4px 4px 3px -2.5px rgba(0, 0, 0, 0.1490196078), -0.5px -0.5px rgba(0, 0, 0, 0.1333333333);
+}
+.btn.btn-success {
+  color: #fff;
+  background: var(--success, #32cd32);
+  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.7019607843), inset -1px -1px 1px rgba(0, 0, 0, 0.231372549), 0.444584px 0.444584px 0.628737px -0.75px rgba(0, 0, 0, 0.2588235294), 1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.2470588235), 2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.231372549), 5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.1921568627), 14px 14px 21.2132px -3.75px rgba(0, 0, 0, 0.2), -0.5px -0.5px rgba(0, 100, 0, 0.2);
+}
+.btn.btn-success:hover {
+  background-color: #47d247;
+}
+.btn.btn-success:active, .btn.btn-success[data-selected] {
+  box-shadow: inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.7019607843), inset -0.5px -0.5px 1px rgba(0, 0, 0, 0.3568627451), 0.222px 0.222px 0.314px -1px rgba(0, 0, 0, 0.2), 0.605px 0.605px 0.856px -1px rgba(0, 0, 0, 0.1803921569), 1.329px 1.329px 1.88px -1.5px rgba(0, 0, 0, 0.2509803922), 2.95px 2.95px 4.172px -2px rgba(0, 0, 0, 0.1019607843), 4px 4px 3px -2.5px rgba(0, 0, 0, 0.1490196078), -0.5px -0.5px rgba(0, 0, 0, 0.1333333333);
+}
+.btn.btn-warning {
+  color: #333333;
+  background: var(--warning, #ffd700);
+  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.7019607843), inset -1px -1px 1px rgba(0, 0, 0, 0.231372549), 0.444584px 0.444584px 0.628737px -0.75px rgba(0, 0, 0, 0.2588235294), 1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.2470588235), 2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.231372549), 5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.1921568627), 14px 14px 21.2132px -3.75px rgba(0, 0, 0, 0.2), -0.5px -0.5px rgba(128, 100, 0, 0.2);
+}
+.btn.btn-warning:hover {
+  background-color: #ffdb1a;
+}
+.btn.btn-warning:active, .btn.btn-warning[data-selected] {
+  box-shadow: inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.7019607843), inset -0.5px -0.5px 1px rgba(0, 0, 0, 0.3568627451), 0.222px 0.222px 0.314px -1px rgba(0, 0, 0, 0.2), 0.605px 0.605px 0.856px -1px rgba(0, 0, 0, 0.1803921569), 1.329px 1.329px 1.88px -1.5px rgba(0, 0, 0, 0.2509803922), 2.95px 2.95px 4.172px -2px rgba(0, 0, 0, 0.1019607843), 4px 4px 3px -2.5px rgba(0, 0, 0, 0.1490196078), -0.5px -0.5px rgba(0, 0, 0, 0.1333333333);
+}
+.btn.btn-danger {
+  color: #fff;
+  background: var(--danger, #ff4f5e);
+  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.7019607843), inset -1px -1px 1px rgba(0, 0, 0, 0.231372549), 0.444584px 0.444584px 0.628737px -0.75px rgba(0, 0, 0, 0.2588235294), 1.21072px 1.21072px 1.71222px -1.5px rgba(0, 0, 0, 0.2470588235), 2.6583px 2.6583px 3.75941px -2.25px rgba(0, 0, 0, 0.231372549), 5.90083px 5.90083px 8.34503px -3px rgba(0, 0, 0, 0.1921568627), 14px 14px 21.2132px -3.75px rgba(0, 0, 0, 0.2), -0.5px -0.5px rgba(100, 0, 0, 0.2);
+}
+.btn.btn-danger:hover {
+  background-color: #ff6975;
+}
+.btn.btn-danger:active, .btn.btn-danger[data-selected] {
+  box-shadow: inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.7019607843), inset -0.5px -0.5px 1px rgba(0, 0, 0, 0.3568627451), 0.222px 0.222px 0.314px -1px rgba(0, 0, 0, 0.2), 0.605px 0.605px 0.856px -1px rgba(0, 0, 0, 0.1803921569), 1.329px 1.329px 1.88px -1.5px rgba(0, 0, 0, 0.2509803922), 2.95px 2.95px 4.172px -2px rgba(0, 0, 0, 0.1019607843), 4px 4px 3px -2.5px rgba(0, 0, 0, 0.1490196078), -0.5px -0.5px rgba(0, 0, 0, 0.1333333333);
 }
 .btn[data-color=tertiary] {
   color: #fff;
